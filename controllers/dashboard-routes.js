@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../config/config')
 const { Post } = require('../models/');
 const withAuth = require('../utils/auth');
 
@@ -32,7 +33,7 @@ router.get('/new', withAuth, (req, res) => {
 router.get('/edit/:id', withAuth, async (req, res) => {
   try {
     // what should we pass here? we need to get some data passed via the request body
-    const postData = await Post.findByPk(????);
+    const postData = await Post.findByPk(req.param.id);
 
     if (postData) {
       // serializing the data
