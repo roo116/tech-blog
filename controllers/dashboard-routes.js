@@ -3,11 +3,11 @@ const sequelize = require('../config/config')
 const { Post, Comment, User } = require("../models/");
 const withAuth = require("../utils/auth");
 
-router.get("/", withAuth, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     // store the results of the db query in a variable called postData. should use something that "finds all" from the Post model. may need a where clause!
     const postData = await Post.findAll({
-      where: {id: req.session.user_id},
+      where: { id: req.session.user_id },
       attributes: ["id", "post_url", "title", "created_at"],
       include: [
         {
@@ -34,11 +34,12 @@ router.get("/", withAuth, async (req, res) => {
     const posts = postData.map((post) => post.get({ plain: true }));
 
     // fill in the view to be rendered
-    res.render("dashboard", {
+    res.render("all-posts-admin", {
       // this is how we specify a different layout other than main! no change needed
       layout: "dashboard",
       // coming from line 10 above, no change needed
       posts,
+      // loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     res.redirect("login");
