@@ -39,11 +39,11 @@ router.get("/", async (req, res) => {
       layout: "dashboard",
       // coming from line 10 above, no change needed
       posts,
-      // loggedIn: req.session.loggedIn,
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     res.redirect("login");
-  }
+  } 
 });
 
 router.get("/new", withAuth, (req, res) => {
