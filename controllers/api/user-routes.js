@@ -1,3 +1,4 @@
+const sequelize = require("../../config/config");
 const router = require("express").Router();
 const { User } = require("../../models");
 
@@ -65,7 +66,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-  console.log("This is the req.session logout user-routes", req.session)
+  console.log("This is the req.session logout user-routes", req.session);
   if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
